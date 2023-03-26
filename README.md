@@ -78,7 +78,9 @@ print(generate_keygen())
 
 </pre></code>
 
-**print("This is the answer 5jp6-K-uk-moHN-6Ms5!")**
+**print("This is the keygen A6921AQ%77FI507*")**
+
+![Screenshot from 2023-03-26 12-48-09](https://user-images.githubusercontent.com/66968869/227797890-90b90eb9-3e58-48eb-8ef0-6ed313f71e8b.png)
 
 **How I did it using Ghidra (and any other tools you used like gdb):**
 
