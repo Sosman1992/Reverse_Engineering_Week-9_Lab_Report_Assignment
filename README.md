@@ -194,3 +194,17 @@ print(generate_keygen())
 ## ANSWER
 This is the keygen 
 
+import random
+
+while True:
+    password = ''.join(random.choices('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', k=13))
+    xor_value1 = ord(password[12]) ^ ord(password[8]) ^ ord(password[9])
+    xor_value2 = ord(password[8]) ^ ord(password[7])
+    xor_value3 = ord(password[6]) ^ ord(password[7])
+    sum_value = ord(password[1]) + ord(password[3]) + ord(password[5]) - ord(password[5])
+    if xor_value1 != ord(password[10]) and ord(password[10]) < 51 and xor_value2 < 4 and password[10] == password[12] and xor_value3 < 3 and sum_value == ord(password[6]):
+        break
+
+print(f"Generated password: {password}")
+
+
