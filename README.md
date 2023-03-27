@@ -138,3 +138,54 @@ This is the keygen ANF3J4Y7#DA*R6FV
 
 ![9_5](https://user-images.githubusercontent.com/66968869/227815821-69dc2ab3-c74b-4ef0-b5b4-3a303da60ee8.png)
 
+
+
+# SOLUTION TO Lab 9-6 [controlflow3] crackme AND EXPLANATION OF HOW I SOLVE IT USING THE TOOLS (strings,uftrace,ghidra) 
+## STEPS
+After downloading the file from the website, I extracted the downloaded zip file `controlflow1-1` to my Desktop and it provided with a file named `controlflow1`. I then proceeded to Ghidra to see how best I can decompile and analyze this executable file since running string and uftrace on the file was not providing me enough information. First and foremost after launching Ghidra, from the `Symbol Tree` pane I searched for the actual main function which is basically the entry point of the program and double click it to launch. Ghidra launched the program and provide me with C-code like program in its decompiler pane and in this code I found the `main` function and noticed a function call named rock(). Upon double clicking the rock() function it popped up a new window with a C-code within which I also noticed a fuction call named paper(). Clicking on the paper function opened its function and definition and I also noticed a function call within it named scissors(). I further went on to click it and also noticed anothert function called named lizard(). I clicked on the lizard function and it also contains a function named spock(). On clicking the spock() function it opened its function definiton and it also contains another function called win.
+
+The `win()` function takes no arguments and does not return anything. The main purpose of this function is to print two messages using the "puts" function and then exit the program using the "exit" function which causes the program to terminate immediately.
+
+Also, the `spock()` function takes a single argument of type long and does not return anything. The function uses a switch statement to perform different actions based on the value of a byte located at offset 0xF from the memory location pointed to by the argument "param_1". If the byte is equal to 0x2a, the "win" function is called. If the byte is one of the values 0x43, 0x4b, 0x4f, 0x50, or 0x53, the message "!!!" is printed using the "printf" function and then the "lizard" function is called with a specific argument. If the byte is any other value, the "lizard" function is called with the argument "param_1", and then the message "Error: Password was taken out of context." is printed using the "puts" function. Finally, the function calls the "exit" function with the value 6 as an argument. This causes the program to terminate with an error code of 6. 
+
+Moreover, the `lizard()` also takes a single argument of type long and does not return anything. 
+The function then uses a switch statement to perform different actions based on the value of a byte located at offset 1 from the memory location pointed to by the argument "param_1". If the byte is equal to 0x36, the "spock" function is called with the argument "param_1". If the byte is one of the values 0x39, 0x41, 0x44, 0x52, or 0x54, the message "Cupcakes!!!" is printed using the "puts" function, and then the "rock" function is called with a specific argument. If the byte is any other value, the "lizard" function is called with the argument "param_1", and then the message "Error: Password was too arrogant." is printed using the "puts" function.
+
+The function `scissors()` takes a single argument, which checks the first character of the input and decides which function to call next. Depending on the character, scissors() may call the functions rock(), lizard(), or exit with an error message. The function lizard() checks the second character of the input and may call the function spock() if the character is '6', or exit with an error message otherwise. The function spock() checks the 16th character of the input and may call the function win() if the character is '*', or call the function lizard() or exit with an error message otherwise.
+
+The `paper()` function also to be performing some sort of check on the eighth byte of param_1/input.
+
+
+**My solution is shown below:**
+<pre><code>
+#!/usr/bin/env python3
+import string
+import random
+"""Defining the rules on which for a keygen is to be generated"""
+RULES = {
+    0: "A",
+    1: "6",
+    3: "2",
+    7: "%",
+    15: "*"
+}
+
+"""Generating the keygen based on the rules"""
+def generate_keygen():
+    keygen = ["0"] * 16  
+    for position, character in RULES.items():
+        keygen[position] = character
+        
+"""Now replacing the remaining characters prefilled with zeros with random uppercase letters and digits"""
+    for i in range(len(keygen)):
+        if keygen[i] == "0":
+            keygen[i] = random.choice("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+    return "".join(keygen)
+
+print(generate_keygen())
+
+</pre></code>
+
+## ANSWER
+This is the keygen 
+
