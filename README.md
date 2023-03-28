@@ -168,22 +168,16 @@ import string
 import random
 """Defining the rules on which for a keygen is to be generated"""
 RULES = {
-    0: "A",
-    1: "6",
-    3: "2",
-    7: "%",
-    15: "*"
-}
+    }
 
 """Generating the keygen based on the rules"""
-def generate_keygen():
-    keygen = ["0"] * 16  
-    for position, character in RULES.items():
+def generate_keygen(length=16):
+    password = ''.join(random.choices('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', k=16))  
+    for position, character in password.items():
         keygen[position] = character
         
 """Now replacing the remaining characters prefilled with zeros with random uppercase letters and digits"""
     for i in range(len(keygen)):
-        if keygen[i] == "0":
             keygen[i] = random.choice("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
     return "".join(keygen)
 
