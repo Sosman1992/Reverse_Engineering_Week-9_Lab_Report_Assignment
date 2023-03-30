@@ -163,25 +163,18 @@ Lastly, the `main()` function is the entry point of the program (where program e
 
 **My solution is shown below:**
 <pre><code>
-#!/usr/bin/env python3
-import string
 import random
-"""Defining the rules on which for a keygen is to be generated"""
-RULES = {
-    }
 
-"""Generating the keygen based on the rules"""
-def generate_keygen(length=16):
-    password = ''.join(random.choices('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', k=16))  
-    for position, character in password.items():
-        keygen[position] = character
-        
-"""Now replacing the remaining characters prefilled with zeros with random uppercase letters and digits"""
-    for i in range(len(keygen)):
-            keygen[i] = random.choice("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
-    return "".join(keygen)
+while True:
+    password = ''.join(random.choices('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', k=13))
+    xor_value1 = ord(password[12]) ^ ord(password[8]) ^ ord(password[9])
+    xor_value2 = ord(password[8]) ^ ord(password[7])
+    xor_value3 = ord(password[6]) ^ ord(password[7])
+    sum_value = ord(password[1]) + ord(password[3]) + ord(password[5]) - ord(password[5])
+    if xor_value1 != ord(password[10]) and ord(password[10]) < 51 and xor_value2 < 4 and password[10] == password[12] and xor_value3 < 3 and sum_value == ord(password[6]):
+        break
 
-print(generate_keygen())
+print(f"Generated password: {password}")
 
 </pre></code>
 
