@@ -166,7 +166,7 @@ Lastly, the `main()` function is the entry point of the program (where program e
 import random
 
 while True:
-    password = ''.join(random.choices('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', k=13))
+    password = ''.join(random.choices('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', k=16))
     xor_value1 = ord(password[12]) ^ ord(password[8]) ^ ord(password[9])
     xor_value2 = ord(password[8]) ^ ord(password[7])
     xor_value3 = ord(password[6]) ^ ord(password[7])
